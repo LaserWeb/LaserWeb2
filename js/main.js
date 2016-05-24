@@ -51,6 +51,10 @@ $(document).ready(function() {
 
     $('#inflateVal').change(onInflateChange.bind(this));
 
+
+    $('#g-open').on('click', function() {
+      $('#googledrive').modal('show');
+    });
     // Top toolbar Menu
 
     //File -> Open
@@ -391,8 +395,11 @@ function readFile(evt) {
 
                 var geometry = new THREE.PlaneBufferGeometry(imgwidth, imgheight, 1);
 
+                var texture = new THREE.TextureLoader().load(event.target.result);
+                texture.minFilter = THREE.LinearFilter
+
                 var material = new THREE.MeshBasicMaterial({
-                    map: new THREE.TextureLoader().load(event.target.result),
+                    map: texture,
                     transparent: true
                 });
 
