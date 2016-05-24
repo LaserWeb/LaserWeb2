@@ -43,15 +43,13 @@ function createPicker() {
         //     .setIncludeFolders(true)
         // view.setQuery('owner:me');
         var view = new google.picker.DocsView()
-         .setIncludeFolders(true)
+            .setIncludeFolders(true)
         var picker = new google.picker.PickerBuilder()
             .setAppId(appId)
             .setOAuthToken(oauthToken)
             .addView(view)
             .addView(new google.picker.DocsUploadView())
             .setCallback(pickerCallback)
-            // .addView(google.picker.ViewId.IMAGE_SEARCH)
-            .enableFeature(google.picker.Feature.NAV_HIDDEN)
             .build();
          picker.setVisible(true);
       }
