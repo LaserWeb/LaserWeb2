@@ -4,7 +4,7 @@ function initLocalStorage() {
 }
 
 
-localParams = ['spjsip', 'laserXMax', 'laserYMax', 'startgcode', 'laseron', 'laseroff', 'lasermultiply', 'homingseq', 'endgcode', 'useOffset', 'imagePosition', 'useNumPad', 'useVideo', 'useProfile'];
+localParams = ['spjsip', 'laserXMax', 'laserYMax', 'startgcode', 'laseron', 'laseroff', 'lasermultiply', 'homingseq', 'endgcode', 'useOffset', 'imagePosition', 'useNumPad', 'useVideo'];
 
 function saveSettingsLocal() {
     for (i = 0; i < localParams.length; i++) {
@@ -30,7 +30,35 @@ function backupSettingsLocal() {
   var blob = new Blob([json], {type: "application/json"});
     invokeSaveAsDialog(blob, 'laserweb-settings-backup.json');
 
-}
+};
+
+function checkSettingsLocal() {
+  var anyissues = false;
+  var anywarn = false;
+  printLog('<hr><b>Checking whether you have configured LaserWeb :</b><p>', msgcolor);
+  for (i = 0; i < localParams.length; i++) {
+    var val = $('#' + localParams[i]).val(); // Read the value from form
+    if(val) {
+      printLog('Checking : ' + localParams[i] + ' : ' + val, successcolor);
+    } else {
+      field = localParams[i]
+      if (field.indexOf('laseron') == 0 || field.indexOf('laseroff') == 0 ) {
+        printLog('Checking : ' + localParams[i] + ' : OPTIONAL ' + val, warncolor);
+        anywarn = true;
+      } else {
+        printLog('Checking : ' + localParams[i] + ' : NOT SET ' + val, errorcolor);
+        anyissues = true;
+      }
+    }
+  };
+  if (anyissues) {
+    printLog('<b>MISSING CONFIG: You need to configure LaserWeb for your setup. </b><hr>', errorcolor);
+  }
+
+  if (!anyissues && anywarn) {
+    printLog('<b>WARNINGS in Config: You might need to configure LaserWeb for your setup, depending on your controller.</b><hr>', warncolor);
+  }
+};
 
 function restoreSettingsLocal(evt) {
   console.log('Inside Restore');

@@ -82,9 +82,6 @@ $(document).ready(function() {
         saveSettingsLocal();
     });
 
-    $('#macroEdit').editableTableWidget({
-        preventColumns: [1, 4, 5, 6]
-    });
     //$('#macroEdit').editableTableWidget();
 
     // // Show/Hide Macro Pad
@@ -119,22 +116,7 @@ $(document).ready(function() {
     });
 
 
-    // Show/Hide Macro Pad
-    $('#togglemacro').on('click', function() {
-      if ($( "#togglemacro" ).hasClass( "btn-primary" )) {
-        $('#macro_container').hide();
-        $('#renderArea').show();
-        $('#viewer_container').show();
-        $("#togglemacro").removeClass("btn-primary");
-        $("#togglemacro").addClass("btn-default");
-      } else {
-        $('#macro_container').show();
-        $('#renderArea').hide();
-        $('#viewer_container').hide();
-        $("#togglemacro").addClass("btn-primary");
-        $("#togglemacro").removeClass("btn-default");
-      }
-    });
+
 
 
     // Show/Hide Macro Pad
@@ -190,6 +172,7 @@ $(document).ready(function() {
 
 checkNumPad();
 
+checkSettingsLocal();
 
 });
 // End of document.ready

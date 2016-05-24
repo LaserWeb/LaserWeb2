@@ -1,5 +1,43 @@
 function macrosInit() {
 
+  $('#macroEdit').editableTableWidget({
+      preventColumns: [1, 4, 5, 6]
+  });
+
+
+  // Show/Hide Macro Pad
+  $('#togglemacro').on('click', function() {
+    if ($( "#togglemacro" ).hasClass( "btn-primary" )) {
+      $('#macro_container').hide();
+      $('#renderArea').show();
+      $('#viewer_container').show();
+      $("#togglemacro").removeClass("btn-primary");
+      $("#togglemacro").addClass("btn-default");
+    } else {
+      $('#macro_container').show();
+      $('#renderArea').hide();
+      $('#viewer_container').hide();
+      $("#togglemacro").addClass("btn-primary");
+      $("#togglemacro").removeClass("btn-default");
+    }
+  });
+
+  $('#closemacro').on('click', function() {
+    if ($( "#togglemacro" ).hasClass( "btn-primary" )) {
+      $('#macro_container').hide();
+      $('#renderArea').show();
+      $('#viewer_container').show();
+      $("#togglemacro").removeClass("btn-primary");
+      $("#togglemacro").addClass("btn-default");
+    } else {
+      $('#macro_container').show();
+      $('#renderArea').hide();
+      $('#viewer_container').hide();
+      $("#togglemacro").addClass("btn-primary");
+      $("#togglemacro").removeClass("btn-default");
+    }
+  });
+
   // Show/Hide Macro Pad
   $('#editmacro').on('click', function() {
       $('#macrostatus').hide();

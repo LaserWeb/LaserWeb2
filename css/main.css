@@ -26,6 +26,11 @@ button:focus {outline:0 !important;}
     border-radius: 4px;
 }
 
+.btn-view {
+    padding: 15px 12px;
+    border-radius: 4px;
+}
+
 .btn-numpad {
     padding: 14px 17px;
     border-radius: 4px;
@@ -215,7 +220,7 @@ button:focus {outline:0 !important;}
     margin-top: 5px;
 }
 .pf {
-    /*white-space: pre;*/
+  margin-top: -8px;
 }
 .ui-slider {
     background: #ccc;
