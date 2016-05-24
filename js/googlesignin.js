@@ -44,7 +44,6 @@ function createPicker() {
         // view.setQuery('owner:me');
         var view = new google.picker.DocsView()
          .setIncludeFolders(true)
-         .setSelectFolderEnabled(true);
         var picker = new google.picker.PickerBuilder()
             .setAppId(appId)
             .setOAuthToken(oauthToken)
