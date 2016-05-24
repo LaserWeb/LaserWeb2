@@ -135,7 +135,7 @@
             </button>
             <!-- <a class="navbar-brand" href="#">LaserWeb</a> -->
             <form class="navbar-form navbar-left" role="form">
-                <span class="btn btn-default btn-file" title="Open a png, .jpg, .jpeg, .bmp, .gcode, .svg, .dxf, or .stl file"><i class="fa fa-folder-open fa-fw"></i>Open<input id="file" type="file" accept=".png,.jpg,.jpeg,.bmp,.gcode,.g,.svg,.dxf,.stl" /></span>
+                <span class="btn btn-default btn-file" title="Open a png, .jpg, .jpeg, .bmp, .gcode, .svg, .dxf, or .stl file" id="openbutton"><i class="fa fa-folder-open fa-fw"></i>Open<input id="file" type="file" accept=".png,.jpg,.jpeg,.bmp,.gcode,.g,.svg,.dxf,.stl" /></span>
             </form>
 
             <!-- Serial Port Form -->
@@ -268,7 +268,7 @@
             <div id="camleftcol" style="display:none; width: 90%; margin-left: 10px;">
 
                 <div class="bs-callout bs-callout-danger" id="filestatus">
-                    <h4><i class="fa fa-fw fa-exclamation" aria-hidden="true"></i>No File to work with</h4> Please open a file from the "Open" button:
+                    <h4><i class="fa fa-fw fa-exclamation" aria-hidden="true"></i>No File to work with</h4> Please <a href="#" onclick="$('#file').click()">open a file from the "Open" button</a>:
                     <br> SVG (Paths only, single group), DXF (R14 Lines/Polylines/Circles), BMP/PNG/JPEG (Raster Engraving) and GCODE (External CAM) are all supported
                 </div>
 
