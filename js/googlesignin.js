@@ -35,16 +35,24 @@ function onPickerApiLoad() {
       createPicker();
 }
 
+
+
 function createPicker() {
       if (pickerApiLoaded && oauthToken) {
-        var view = new google.picker.View(google.picker.ViewId.DOCS);
-        view.setQuery('owner:me');
+        // var view = new google.picker.View(google.picker.ViewId.DOCS)
+        //     .setIncludeFolders(true)
+        // view.setQuery('owner:me');
+        var view = new google.picker.DocsView()
+         .setIncludeFolders(true)
+         .setSelectFolderEnabled(true);
         var picker = new google.picker.PickerBuilder()
             .setAppId(appId)
             .setOAuthToken(oauthToken)
             .addView(view)
             .addView(new google.picker.DocsUploadView())
             .setCallback(pickerCallback)
+            // .addView(google.picker.ViewId.IMAGE_SEARCH)
+            .enableFeature(google.picker.Feature.NAV_HIDDEN)
             .build();
          picker.setVisible(true);
       }
@@ -306,6 +314,7 @@ function getFileContent(fileId, fileName) {
                     $('#togglefile').click();
                   }
               }
+              $('#statusmodal').modal('hide');
               $('#statusmodal').modal('hide');
           }
       }
