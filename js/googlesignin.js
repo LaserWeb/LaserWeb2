@@ -61,7 +61,6 @@ function signOut() {
 function listFiles() {
  $('#fileList').empty();
  var request = gapi.client.drive.files.list({
-     'pageSize': 10,
      'fields': "nextPageToken, files(id, name)"
    });
 
