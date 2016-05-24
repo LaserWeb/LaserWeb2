@@ -72,6 +72,7 @@ function listFiles() {
      if (files && files.length > 0) {
        for (var i = 0; i < files.length; i++) {
          var file = files[i];
+         console.log('GDrive: Found ', file)
          if (file.name.match(/.dxf$/i) || file.name.match(/.svg$/i) ) {
            var idstring = String(file.id)
            $('#fileList').append("<i class='fa fa-fw fa-file-o' aria-hidden='true'></i><a href='#' onclick='getFileContent(\""+file.id+"\",\""+file.name+"\")'>"+file.name+"</a><br/>");
