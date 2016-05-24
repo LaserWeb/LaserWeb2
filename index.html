@@ -197,7 +197,7 @@
                       <div id="gSignInWrapper">
                           <button class="btn btn-success customGPlusSignIn" id="g-login"><i class="fa fa-fw fa-google" aria-hidden="true"></i>Login<i class="fa fa-fw fa-sign-in" aria-hidden="true"></i></button>
                           <button class="btn btn-danger customGPlusSignIn" id="g-logout" onclick="signOut();" style="display:none;"><i class="fa fa-fw fa-google" aria-hidden="true"></i>Logout</button>
-                          <button class="btn btn-default customGPlusSignIn" id="g-open" onclick="listFiles();" style="display:none;"><i class="fa fa-fw fa-folder" aria-hidden="true"></i>Open from Drive</button>
+                          <button class="btn btn-default customGPlusSignIn" id="g-open" onclick="createPicker();" style="display:none;"><i class="fa fa-fw fa-folder" aria-hidden="true"></i>Open from Drive</button>
                       </div>
                   </td>
               </tr>
@@ -495,12 +495,15 @@
             <!-- end of cam tabcontent -->
 
             <div id="settingscol" style="display: none; width: 90%; margin-left: 10px;">
-                <ul class="nav nav-pills nav-justified">
-                    <li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-sitemap" aria-hidden="true"></i></a></li>
-                    <li><a data-toggle="tab" href="#menu1"><i class="fa fa-line-chart" aria-hidden="true"></i></a></li>
-                    <li><a data-toggle="tab" href="#menu2"><i class="fa fa-codepen" aria-hidden="true"></i></a></li>
-                    <li><a data-toggle="tab" href="#menu3"><i class="fa fa-wrench" aria-hidden="true"></i></a></li>
-                    <li><a data-toggle="tab" href="#menu4"><i class="fa fa-cloud-download" aria-hidden="true"></i></a></li>
+              <div class="bs-callout bs-callout-danger" id="settingsstatus">
+                  <h4><i class="fa fa-fw fa-exclamation" aria-hidden="true"></i>Incomplete Config</h4> Please complete configuration
+              </div>
+                <ul class="nav nav-pills">
+                    <li class="active"><a data-toggle="tab" href="#home"><span class="fa-stack"><i class="fa fa-sitemap fa-stack-1x"></i><strong class="fa-stack-1x icon-text" style="margin-left: -4px;">SPJS</strong></span></i></a></li>
+                    <li><a data-toggle="tab" href="#menu1"><span class="fa-stack"><i class="fa fa-line-chart fa-stack-1x"></i><strong class="fa-stack-1x icon-text" style="margin-left: -2px;">SIZE</strong></span></i></a></li>
+                    <li><a data-toggle="tab" href="#menu2"><span class="fa-stack"><i class="fa fa-codepen fa-stack-1x"></i><strong class="fa-stack-1x icon-text" style="margin-left: -6px;">GCODE</strong></span></i></a></li>
+                    <li><a data-toggle="tab" href="#menu3"><span class="fa-stack"><i class="fa fa-wrench fa-stack-1x"></i><strong class="fa-stack-1x icon-text" style="margin-left: -3px;">TOOL</strong></span></i></a></li>
+                    <li><a data-toggle="tab" href="#menu4"><span class="fa-stack"><i class="fa fa-download fa-stack-1x"></i><strong class="fa-stack-1x icon-text" style="margin-left: -10px;">BACKUP</strong></span></i></a></li>
                 </ul>
                 <br>
                 <div class="tab-content">
@@ -882,25 +885,21 @@
 </div>
 <!-- End SVG Size Modal -->
 
-
-<div id="googledrive" class="modal fade" role="dialog">
+<div id="statusmodal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-        <h4 class="modal-title">Open from Google Drive</h4>
+        <h4 class="modal-title" id="statusTitle">Status Title</h4>
       </div>
       <div class="modal-body">
-
-          <div style="border-bottom: dashed 1px #aaa;" id="fileList"></div>
-
+          <div id="statusBody"></div>
+          <div id="statusBody2"></div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-warning customGPlusSignIn" id="g-refresh" onclick="listFiles();" style="display:none;"><i class="fa fa-fw fa-refresh" aria-hidden="true"></i></button>
-        <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+        <!-- <button type="button" class="btn btn-success" data-dismiss="modal">OK</button> -->
       </div>
     </div>
 

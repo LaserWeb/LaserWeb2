@@ -1,8 +1,8 @@
 .bs-callout {
-    padding: 20px;
-    margin: 20px 0;
+    padding: 6px;
+    margin: 6px 0;
     border: 1px solid #eee;
-    border-left-width: 6px;
+    border-left-width: 5px;
     border-radius: 3px;
     background-color: #ffffff;
 }

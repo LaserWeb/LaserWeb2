@@ -13,6 +13,7 @@ function saveSettingsLocal() {
         printLog('Saving: ' + localParams[i] + ' : ' + val, successcolor);
         localStorage.setItem(localParams[i], val);
     };
+    printLog('<b>Saved Settings: <br>NB:</b> Please refresh page for settings to take effect', errorcolor);
 };
 
 function loadSettingsLocal() {
@@ -53,10 +54,13 @@ function checkSettingsLocal() {
   };
   if (anyissues) {
     printLog('<b>MISSING CONFIG: You need to configure LaserWeb for your setup. </b><hr>', errorcolor);
+    $("#togglesettings").click();
+    $("#settingsstatus").show();
   }
 
   if (!anyissues && anywarn) {
     printLog('<b>WARNINGS in Config: You might need to configure LaserWeb for your setup, depending on your controller.</b><hr>', warncolor);
+    $("#settingsstatus").hide();
   }
 };
 

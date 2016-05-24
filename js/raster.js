@@ -57,7 +57,7 @@ function drawRaster() {
 };
 
 function rasterInit() {
-    printLog('Raster module Activated', msgcolor)
+    // printLog('Raster module Activated', msgcolor)
 
     // Raster support
     var paperscript = {};
