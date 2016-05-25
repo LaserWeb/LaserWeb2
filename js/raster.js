@@ -133,7 +133,7 @@ function rasterInit() {
         width = img.naturalWidth;
         var physwidth = (width / dpival) ;
         var spotSize = (physwidth / width);
-        var spotSizeMul = parseFloat($('#spotSize').val()) / 100;
+        var spotSizeMul = parseFloat($('#spotSize').val());
         var laserFeed = $('#feedRate').val();
         var laserRapid = $('#rapidRate').val();
         var blackspeed = $("#laservariablespeedslider").slider("values", 0) * laserRapid / 100.0;
