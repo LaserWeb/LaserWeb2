@@ -160,6 +160,11 @@ function rasterInit() {
 
 function setImgDims() {
     // Rate of inch to mm = 0.03937007874016 from http://www.translatorscafe.com/cafe/EN/units-converter/digital-image-resolution/3-2/dot%2Finch-dot%2Fmillimeter/
+    printLog('Changing size: Clearing GCODE', msgcolor)
+    if (typeof(object) !== 'undefined') {
+      scene.remove(object)
+    }
+    document.getElementById('gcodepreview').value = '';
     dpival = parseFloat($('#rasterDPI').val()) * 0.03937007874016;
     minpwr = $("#laserpwrslider").slider("values", 0);
     maxpwr = $("#laserpwrslider").slider("values", 1);
