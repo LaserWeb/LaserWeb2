@@ -326,17 +326,21 @@ function scaleChange() {
 }
 
 function resetView() {
-    if (typeof(object) != 'undefined') {
-        viewExtents(object);
-    } else if (typeof(rastermesh) != 'undefined') {
-        viewExtents(rastermesh);
-    } else if (typeof(inflateGrp) != 'undefined') {
-        viewExtents(inflateGrp);
-    } else if (typeof(fileParentGroup) != 'undefined') {
-        viewExtents(fileParentGroup);
+    if (activeObject) {
+      viewExtents(activeObject);
     } else {
+      if (typeof(object) != 'undefined') {
+        viewExtents(object);
+      } else if (typeof(rastermesh) != 'undefined') {
+        viewExtents(rastermesh);
+      } else if (typeof(inflateGrp) != 'undefined') {
+        viewExtents(inflateGrp);
+      } else if (typeof(fileParentGroup) != 'undefined') {
+        viewExtents(fileParentGroup);
+      } else {
         viewExtents(helper);
-    };
+      };
+    }
 }
 
 

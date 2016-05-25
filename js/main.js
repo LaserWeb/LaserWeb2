@@ -7,6 +7,7 @@ var warncolor = '#ff6600';
 var debug = false;
 
 var useNumPad;
+var activeObject
 
 // Place all document.ready tasks into functions and ONLY run the functions from doument.ready
 $(document).ready(function() {
@@ -239,6 +240,7 @@ function readFile(evt) {
   console.log(evt);
     // Close the menu
     $("#drop1").dropdown("toggle");
+    cleanupThree();
     // Filereader
     var f = evt.target.files[0];
     if (f) {
@@ -264,6 +266,7 @@ function readFile(evt) {
                 $('#prepopt').show();
                 $('#prepopt').click();
                 attachTransformWidget();
+                activeObject = fileParentGroup
             };
 
         } else if (f.name.match(/.svg$/i)) {
@@ -298,9 +301,11 @@ function readFile(evt) {
                 $('#stlopt').show();
                 $('#prepopt').show();
                 $('#prepopt').click();
-                attachTransformWidget();
                 $('#svgresize').modal('show');
+                attachTransformWidget();
+                activeObject = fileParentGroup
             };
+            $('#svgresize').modal('show');
 
         } else if (f.name.match(/.gcode$/i)) {
             cleanupThree();
@@ -318,6 +323,7 @@ function readFile(evt) {
                 $('#stlopt').hide();
                 $('#prepopt').hide();
                 $("#transformcontrols").hide();
+                activeObject = object
             };
         } else if (f.name.match(/.stl$/i)) {
             //r.readAsText(evt.target.files[0]);
@@ -370,6 +376,7 @@ function readFile(evt) {
             $('#prepopt').hide();
             $('#stlopt').click();
             $("#transformcontrols").hide();
+            activeObject = fileParentGroup
         } else {
             console.log(f.name + " is probably a Raster");
             $('#origImage').empty();
@@ -415,6 +422,7 @@ function readFile(evt) {
                 resetView();
                 setImgDims();
                 $('#rasterresize').modal('show')
+                activeObject = rastermesh
             };
         }
     }
@@ -469,7 +477,7 @@ function cleanupThree() {
         boundingBox = null;
     }
 
-    if (rastermesh) {
+    if (typeof(rastermesh) != 'undefined') {
         scene.remove(rastermesh);
         rastermesh = null;
     }

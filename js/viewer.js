@@ -425,8 +425,9 @@ viewExtents = function(objecttosee) {
     // lets override the bounding box with a newly
     // generated one
     // get its bounding box
-    var helper = new THREE.BoundingBoxHelper(objecttosee, 0xff0000);
-    helper.update();
+    if (objecttosee) {
+      var helper = new THREE.BoundingBoxHelper(objecttosee, 0xff0000);
+      helper.update();
     //if (this.bboxHelper)
     //    this.scene.remove(this.bboxHelper);
     bboxHelper = helper;
@@ -514,6 +515,7 @@ viewExtents = function(objecttosee) {
     //this.controls.rotateCamera(0.5);
     //this.controls.noRoll = true;
     //this.controls.noRotate = true;
+  }
 };
 
 function colorobj(name) {
