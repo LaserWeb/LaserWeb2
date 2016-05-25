@@ -21,7 +21,7 @@ function attachTransformWidget() {
 };
 
 function filePrepInit() {
-
+  // SVG DPI
   $('#90dpi').on('click', function() {
   	svgscale = ((25.4/90) )
   	$('#scaleFactor').val(svgscale*100);
@@ -50,8 +50,42 @@ function filePrepInit() {
     svgscale = ((25.4/dpival) )
     $('#scaleFactor').val(svgscale*100);
     scaleChange();
-    
+
   });
+  // End Svg DPI
+
+  // Raster DPI
+  $('#ras72dpi').on('click', function() {
+    $('#rasterDPI').val('72');
+    setImgDims();
+  });
+
+  $('#ras150dpi').on('click', function() {
+    $('#rasterDPI').val('150');
+    setImgDims();
+  });
+
+  $('#ras300dpi').on('click', function() {
+    $('#rasterDPI').val('300');
+    setImgDims();
+  });
+
+  $('#ras600dpi').on('click', function() {
+    $('#rasterDPI').val('600');
+    setImgDims();
+  });
+
+  $('#customrasdpi').on('click', function() {
+    $('#rasterDPI').val($("#rasterdpiVal").val());
+    setImgDims();
+  });
+
+
+  $("#rasterdpiVal").change(function() {
+    $('#rasterDPI').val($("#rasterdpiVal").val());
+    setImgDims();
+  });
+  // End Raster DPI
 
 
   $('#rotLeftBtn').on('click', function() {

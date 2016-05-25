@@ -413,6 +413,7 @@ function readFile(evt) {
                 //  attachTransformWidget();
                 resetView();
                 setImgDims();
+                $('#rasterresize').modal('show')
             };
         }
     }

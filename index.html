@@ -894,6 +894,56 @@
 </div>
 <!-- End SVG Size Modal -->
 
+
+<!-- raster Size modal -->
+<div id="rasterresize" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+        <h4 class="modal-title">Bitmap: Import DPI for Raster</h4>
+      </div>
+      <div class="modal-body">
+        Please specify the DPI this file was saved in to scale it to the correct physical size.
+
+
+        <form class="form-horizontal">
+            <!-- <div class="form-group"> -->
+                <label class="control-label">Preset DPI:</label>
+
+                <div class="btn-group input-group  btn-group-justified">
+                  <span class="input-group-addon"><i class="fa fa-desktop"></i>&nbsp;Preset:</span>
+                  <div class="btn btn-default btn-sm" id="ras72dpi">72 dpi </div>
+                  <div class="btn btn-default btn-sm" id="ras150dpi">150 dpi </div>
+                  <div class="btn btn-default btn-sm" id="ras300dpi">300 dpi </div>
+                  <div class="btn btn-default btn-sm" id="ras600dpi">600 dpi </div>
+                  <div class="btn btn-default btn-sm" id="customrasdpi">(Custom)</div>
+                </div>
+                <label class="control-label">Custom:</label>
+                <div class="input-group">
+                  <span class="input-group-addon">Custom: </span>
+                    <input type="number" class="form-control  numpad input-sm" value="100" id="rasterdpiVal" style="text-align:right;">
+                    <span class="input-group-addon">dpi</span>
+                </div>
+
+
+            <!-- </div> -->
+        </form>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- End raster Size Modal -->
+
 <div id="statusmodal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 

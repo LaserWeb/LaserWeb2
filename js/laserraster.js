@@ -98,7 +98,7 @@ function Rasterizer(config) {
         '; Laser Max: {1}%',
         '; Black Speed: {2}mm/min',
         '; White Speed: {3}mm/min',
-        '; Resulution (mm per pixel): {4}mm',
+        '; Resolution (mm per pixel): {4}mm',
         '; Laser Spot Size: {5}mm',
         '; Laser Feedrate: {6}mm/min \n',
         'G1 F{7}\n'
