@@ -62,6 +62,11 @@ $(document).ready(function() {
     var fileOpen = document.getElementById('file');
     fileOpen.addEventListener('change', readFile, false);
 
+    // Fix for opening same file from http://stackoverflow.com/questions/32916687/uploading-same-file-into-text-box-after-clearing-it-is-not-working-in-chrome?lq=1
+    $('#file').bind('click', function() {
+      $('#file').val(null);
+    });
+
     // File -> Save
     $('#save').on('click', function() {
         saveFile();
