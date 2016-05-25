@@ -411,7 +411,8 @@ function readFile(evt) {
 
                 scene.add(rastermesh);
                 //  attachTransformWidget();
-                resetView()
+                resetView();
+                setImgDims();
             };
         }
     }
@@ -466,11 +467,18 @@ function cleanupThree() {
         boundingBox = null;
     }
 
+    if (rastermesh) {
+        scene.remove(rastermesh);
+        rastermesh = null;
+    }
+
     if (control) {
         scene.remove(control);
         controls.reset();
         //  boundingBox = null;
     }
+
+
 }
 
 

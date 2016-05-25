@@ -1,6 +1,6 @@
 var minpwr;
 var maxpwr;
-var spotSizeMul;
+var dpival;
 var laserRapid;
 var width;
 var height;
@@ -79,21 +79,21 @@ function rasterInit() {
     minpwr = $("#laserpwrslider").slider("values", 0);
     maxpwr = $("#laserpwrslider").slider("values", 1);
 
-    $("#spotsizeslider").slider({
-        min: 0,
-        max: 250,
-        values: [100],
-        slide: function(event, ui) {
-            //spotSize = [ui.values[ 0 ]];
-            $('#rasterNow').removeClass('disabled');
-            setImgDims()
-        },
-        change: function(event, ui) {
-            //spotSize = [ui.values[ 0 ]];
-            $('#rasterNow').removeClass('disabled');
-            setImgDims()
-        }
-    });
+    // $("#spotsizeslider").slider({
+    //     min: 0,
+    //     max: 250,
+    //     values: [100],
+    //     slide: function(event, ui) {
+    //         //spotSize = [ui.values[ 0 ]];
+    //         $('#rasterNow').removeClass('disabled');
+    //         setImgDims()
+    //     },
+    //     change: function(event, ui) {
+    //         //spotSize = [ui.values[ 0 ]];
+    //         $('#rasterNow').removeClass('disabled');
+    //         setImgDims()
+    //     }
+    // });
 
     $("#laservariablespeedslider").slider({
         range: true,
@@ -120,12 +120,20 @@ function rasterInit() {
         $('#laservariablespeed').html($("#laservariablespeedslider").slider("values", 0) * $('#rapidRate').val() / 100.0 + ' - ' + $("#laservariablespeedslider").slider("values", 1) * $('#rapidRate').val() / 100.0);
     });
 
-    $('#spotsize').html(':  ' + ($("#spotsizeslider").slider("values", 0) / 100) + 'mm ');
-    spotSizeMul = $("#spotsizeslider").slider("values", 0) / 100;
+    // $('#spotsize').html(':  ' + ($("#spotsizeslider").slider("values", 0) / 100) + 'mm ');
+    // spotSizeMul = $("#spotsizeslider").slider("values", 0) / 100;
+    spotSizeMul = parseFloat($('#spotSize').val()) / 100;
 
     $('#rasterNow').on('click', function() {
-        $('#rasterWidgetSendRasterToLaser').addClass('disabled');
-        var spotSize = $("#spotsizeslider").slider("values", 0) / 100;
+        // $('#rasterWidgetSendRasterToLaser').addClass('disabled');
+        // var spotSize = $("#spotsizeslider").slider("values", 0) / 100;
+
+        dpival = parseFloat($('#rasterDPI').val()) * 0.03937007874016;
+        var img = document.getElementById('origImage');
+        width = img.naturalWidth;
+        var physwidth = (width / dpival) ;
+        var spotSize = (physwidth / width);
+        var spotSizeMul = parseFloat($('#spotSize').val()) / 100;
         var laserFeed = $('#feedRate').val();
         var laserRapid = $('#rapidRate').val();
         var blackspeed = $("#laservariablespeedslider").slider("values", 0) * laserRapid / 100.0;
@@ -138,6 +146,7 @@ function rasterInit() {
             minIntensity: [minpwr],
             maxIntensity: [maxpwr],
             spotSize1: [spotSize],
+            beamSize1: [spotSizeMul],
             imgheight: [height],
             imgwidth: [width],
             feedRate: [laserFeed],
@@ -148,9 +157,7 @@ function rasterInit() {
         });
     });
 
-    $('#spotSize').bind('input propertychange', function() {
-        //console.log('empty');
-        // Todo if empty
+    $('#rasterDPI').bind('input propertychange change paste keyup', function() {
         if (this.value.length) {
             setImgDims();
         }
@@ -158,8 +165,11 @@ function rasterInit() {
 }
 
 
+
 function setImgDims() {
-    spotSizeMul = $("#spotsizeslider").slider("values", 0) / 100;
+    // spotSizeMul = parseFloat($('#spotSize').val());
+    // Rate of inch to mm = 0.03937007874016 from http://www.translatorscafe.com/cafe/EN/units-converter/digital-image-resolution/3-2/dot%2Finch-dot%2Fmillimeter/
+    dpival = parseFloat($('#rasterDPI').val()) * 0.03937007874016;
     minpwr = $("#laserpwrslider").slider("values", 0);
     maxpwr = $("#laserpwrslider").slider("values", 1);
     var img = document.getElementById('origImage');
@@ -170,21 +180,23 @@ function setImgDims() {
     $('#canvas-1').prop('height', (height * 2));
     //$('#canvas-1').prop('width', laserxmax);
     //$('#canvas-1').prop('height', laserymax);
-    if (spotSizeMul > 1 ) {
-      var physwidth = (spotSizeMul * width) + (spotSizeMul / 100);
-      var physheight = (spotSizeMul * height) +  (spotSizeMul / 100);
-    } else {
-      var physwidth = (spotSizeMul * width) - (spotSizeMul / 100);
-      var physheight = (spotSizeMul * height) - (spotSizeMul / 100);
-    }
+    // if (spotSizeMul > 1 ) {
+    //   var physwidth = (spotSizeMul * width) + (spotSizeMul / 100);
+    //   var physheight = (spotSizeMul * height) +  (spotSizeMul / 100);
+    // } else {
+    //   var physwidth = (spotSizeMul * width) - (spotSizeMul / 100);
+    //   var physheight = (spotSizeMul * height) - (spotSizeMul / 100);
+    // }
+    var physwidth = (width / dpival) ;
+
+    var physheight = (height / dpival ) ;
 
 
     $("#physdims").text(physwidth.toFixed(1) + 'mm x ' + physheight.toFixed(1) + 'mm');
-    $('#spotsize').html(($("#spotsizeslider").slider("values", 0) / 100) + 'mm (distance between dots )');
     //$('#spotsize').html( ($( "#spotsizeslider" ).slider( "values", 0 ) / 100) + 'mm (distance between dots )<br>Resultant Job Size: '+ physwidth.toFixed(1)+'mm x '+physheight.toFixed(1)+'mm' );
 
     //  Draw a rect showing outer dims of Engraving - engravings with white space to sides are tricky to visualise without
-    rectWidth = physwidth + spotSizeMul, rectHeight = physheight + spotSizeMul;
+    rectWidth = physwidth, rectHeight = physheight;
     if (boundingBox) {
         scene.remove(boundingBox);
     }
@@ -196,11 +208,11 @@ function setImgDims() {
     });
     BBgeometry = new THREE.Geometry();
     BBgeometry.vertices.push(
-        new THREE.Vector3(-spotSizeMul, 0, 0),
-        new THREE.Vector3(-spotSizeMul, (rectHeight + 1), 0),
-        new THREE.Vector3((rectWidth + 1), (rectHeight + 1), 0),
-        new THREE.Vector3((rectWidth + 1), 0, 0),
-        new THREE.Vector3(-spotSizeMul, 0, 0)
+        new THREE.Vector3(0, 0, 0),
+        new THREE.Vector3(-0, (rectHeight), 0),
+        new THREE.Vector3((rectWidth), (rectHeight), 0),
+        new THREE.Vector3((rectWidth), 0, 0),
+        new THREE.Vector3(0, 0, 0)
     );
     boundingBox = new THREE.Line(BBgeometry, BBmaterial);
     boundingBox.translateX(laserxmax / 2 * -1);
@@ -209,13 +221,16 @@ function setImgDims() {
 
     if (rastermesh) {
 
-        if (spotSizeMul > 1 ) {
-          rastermesh.scale.x = spotSizeMul;
-          rastermesh.scale.y = spotSizeMul;
-        } else {
-          rastermesh.scale.x = spotSizeMul;
-          rastermesh.scale.y = spotSizeMul;
-        }
+        // if (spotSizeMul > 1 ) {
+        //   rastermesh.scale.x = spotSizeMul;
+        //   rastermesh.scale.y = spotSizeMul;
+        // } else {
+        //   rastermesh.scale.x = spotSizeMul;
+        //   rastermesh.scale.y = spotSizeMul;
+        // }
+
+        rastermesh.scale.x = (width / (dpival * 393.7007874016) ) ;
+        rastermesh.scale.y = (height / (dpival * 393.7007874016) ) ;
 
         var bbox2 = new THREE.Box3().setFromObject(rastermesh);
         console.log('bbox for rastermesh: Min X: ', (bbox2.min.x + (laserxmax / 2)), '  Max X:', (bbox2.max.x + (laserxmax / 2)), 'Min Y: ', (bbox2.min.y + (laserymax / 2)), '  Max Y:', (bbox2.max.y + (laserymax / 2)));

@@ -413,6 +413,13 @@
 
 
                     <div class="" id="rasterparams">
+                      <p>
+                      <form class="form-horizontal">
+                        <center>
+                            <a class="btn btn-sm btn-default" id="rasterNow"><i class="fa fa-square-o fa-lg" style="margin-right: 3px;"></i>Prepare Raster G-CODE</a>
+                            <!-- button type="button" class="btn btn-danger disabled" id="rasterWidgetSendRasterToLaser"><i class="fa fa-fire" style="margin-right: 8px;"></i>Send to Laser</button -->
+                        </center>
+                      </form>
 
                         <form class="form-horizontal">
                             <label for="laserpwrsliderlbl">Constrain Laser Power:</label>
@@ -434,13 +441,17 @@
                                 </center>
                             </div>
                         </form>
-                        <hr>
                         <form class="form-horizontal">
-                            <label for="spotsizesliderlbl">Zoom/Resolution: </label>
-                            <span id="spotsize" style="border:0;  font-weight:bold; background: transparent;"></span>
-                            <div id="spotsizeslider"></div>
+                            <!-- <div class="form-group"> -->
+                                <label for="inflateVal" class="control-label">Resolution:</label>
+                                <div class="input-group">
+                                    <input type="text input-sm" class="form-control" value="72" id="rasterDPI">
+                                    <span class="input-group-addon" style="width: 60px;">dpi</span>
+                                </div>
+                                Imported Image Dimensions: <span id="dims">0px x 0 px</span>
+                                <br> Engraved Image Dimensions: <span id="physdims">0mm x 0 mm</span>
+                            <!-- </div> -->
                         </form>
-                        <hr>
                         <form class="form-horizontal">
                             <!-- <div class="form-group"> -->
                                 <label for="inflateVal" class="control-label">Engrave (G1) Feedrate:</label>
@@ -461,17 +472,13 @@
                             <!-- </div> -->
                         </form>
 
+
                         <center>
-                            <a class="btn btn-sm btn-default disabled" id="rasterNow"><i class="fa fa-square-o fa-lg" style="margin-right: 3px;"></i>Prepare Raster</a>
-                            <!-- button type="button" class="btn btn-danger disabled" id="rasterWidgetSendRasterToLaser"><i class="fa fa-fire" style="margin-right: 8px;"></i>Send to Laser</button -->
-                        </center>
-                        <center>
-                            Imported Image Dimensions: <span id="dims">0px x 0 px</span>
-                            <br> Engraved Image Dimensions: <span id="physdims">0mm x 0 mm</span>
+
                             <br>
-                            <div >
-                                <img id="origImage" style="border: 1px solid #555;  max-width:300px;">
-                            </div>
+                            <div style="display: none;">
+                              <img id="origImage" style="border: 1px solid #555;  max-width:300px;">
+                          </div>
                         </center>
                         <hr>
                         <div class="canvas" id="rasterOutput" style="display: none;">
@@ -508,7 +515,7 @@
                 <br>
                 <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
-                        Serial Port JSON Server runs on host:
+                        IP of machine hosting Serial Port JSON Server:
                         <form class="form-horizontal">
                             <!-- <div class="form-group"> -->
                                 <label for="laserXMax" class="control-label">IP Address</label>
@@ -529,8 +536,10 @@
                             <div class="form-group"> -->
                                 <label for="laserYMax" class="control-label">Y-Length</label>
                                 <input type="text" class="form-control numpad" id="laserYMax" placeholder="400">
-                            <!-- </div> -->
 
+                                <label for="SpotSize" class="control-label">Laser Beam Diameter</label>
+                                <input type="text" class="form-control numpad" id="spotSize" placeholder="0.1">
+                            </form>
                           </p>
                         </form>
                     </div>
@@ -580,14 +589,14 @@
                                     <option>Disable</option>
                                 </select>
                             <!-- </div>
-                            <div class="form-group"> -->-
+                            <div class="form-group"> -->
                                 <label for="imagePosition" class="control-label">Place uploaded image in quadrant</label>
                                 <select class="form-control" id="imagePosition">
                                     <option>BottomLeft</option>
                                     <option>TopLeft</option>
                                 </select>
 
-                                <label for="useNumPad" class="control-label">Use TouchNumpads</label>
+                                <label for="useNumPad" class="control-label">Use Touch Numpads</label>
                                 <select class="form-control" id="useNumPad">
                                     <option>Enable</option>
                                     <option>Disable</option>

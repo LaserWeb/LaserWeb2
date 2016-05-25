@@ -98,9 +98,10 @@ function Rasterizer(config) {
         '; Laser Max: {1}%',
         '; Black Speed: {2}mm/min',
         '; White Speed: {3}mm/min',
-        '; Laser Spot Size: {4}mm',
-        '; Laser Feedrate: {5}mm/min \n',
-        'G1 F{6}\n'
+        '; Resulution (mm per pixel): {4}mm',
+        '; Laser Spot Size: {5}mm',
+        '; Laser Feedrate: {6}mm/min \n',
+        'G1 F{7}\n'
         //'G0 F{7}'
     ].join('\n').format(
         // this.config.firmware,
@@ -109,6 +110,7 @@ function Rasterizer(config) {
         useVariableSpeed ? this.config.blackRate : 'N/A ',
         useVariableSpeed ? this.config.whiteRate : 'N/A ',
         this.config.spotSize1,
+        this.config.beamSize1,
         this.config.feedRate,
         this.config.rapidRate);
 
@@ -235,7 +237,7 @@ Rasterizer.prototype.rasterRow = function(y) {
 
         // The Luma grayscale of the pixel
         var lumaGray = (pixels[x*4]*0.3 + pixels[x*4+1]*0.59 + pixels[x*4+2]*0.11)/255.0;
-        this.grayLevel = lumaGray.toFixed(1); 
+        this.grayLevel = lumaGray.toFixed(1);
 
         var speed = this.config.feedRate;
         if (lastGrey != this.grayLevel) {
