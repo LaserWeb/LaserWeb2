@@ -372,6 +372,7 @@ function readFile(evt) {
             $("#transformcontrols").hide();
         } else {
             console.log(f.name + " is probably a Raster");
+            $('#origImage').empty();
             r.readAsDataURL(evt.target.files[0]);
             r.onload = function(event) {
                 var imgtag = document.getElementById("origImage");

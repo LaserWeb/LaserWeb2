@@ -242,16 +242,8 @@ function setImgDims() {
 
     if (rastermesh) {
 
-        // if (spotSizeMul > 1 ) {
-        //   rastermesh.scale.x = spotSizeMul;
-        //   rastermesh.scale.y = spotSizeMul;
-        // } else {
-        //   rastermesh.scale.x = spotSizeMul;
-        //   rastermesh.scale.y = spotSizeMul;
-        // }
-
-        rastermesh.scale.x = (width / (dpival * 393.7007874016) ) ;
-        rastermesh.scale.y = (height / (dpival * 393.7007874016) ) ;
+        rastermesh.scale.x = (physwidth / width)  ;
+        rastermesh.scale.y = (physheight / height) ;
 
         var bbox2 = new THREE.Box3().setFromObject(rastermesh);
         console.log('bbox for rastermesh: Min X: ', (bbox2.min.x + (laserxmax / 2)), '  Max X:', (bbox2.max.x + (laserxmax / 2)), 'Min Y: ', (bbox2.min.y + (laserymax / 2)), '  Max Y:', (bbox2.max.y + (laserymax / 2)));
