@@ -140,6 +140,9 @@ function rasterInit() {
         var whitespeed = $("#laservariablespeedslider").slider("values", 1) * laserRapid / 100.0;
         var useVariableSpeed = $('#useRasterBlackWhiteSpeeds').prop('checked');
         $('#rasterProgressShroud').hide();
+        var xoffset = parseFloat($('#rasterxoffset').val());
+        var yoffset = parseFloat($('#rasteryoffset').val());
+
 
         paper.RasterNow({
             completed: gcodereceived,
@@ -153,11 +156,25 @@ function rasterInit() {
             blackRate: [blackspeed],
             whiteRate: [whitespeed],
             useVariableSpeed: [useVariableSpeed],
-            rapidRate: [laserRapid]
+            rapidRate: [laserRapid],
+            xOffset: [xoffset],
+            yOffset: [yoffset],
         });
     });
 
     $('#rasterDPI').bind('input propertychange change paste keyup', function() {
+        if (this.value.length) {
+            setImgDims();
+        }
+    });
+
+    $('#rasterxoffset').bind('input propertychange change paste keyup', function() {
+        if (this.value.length) {
+            setImgDims();
+        }
+    });
+
+    $('#rasteryoffset').bind('input propertychange change paste keyup', function() {
         if (this.value.length) {
             setImgDims();
         }
@@ -215,8 +232,12 @@ function setImgDims() {
         new THREE.Vector3(0, 0, 0)
     );
     boundingBox = new THREE.Line(BBgeometry, BBmaterial);
-    boundingBox.translateX(laserxmax / 2 * -1);
-    boundingBox.translateY(laserymax / 2 * -1);
+    var xoffset = parseFloat($('#rasterxoffset').val());
+    var yoffset = parseFloat($('#rasteryoffset').val()) * -1;
+    boundingBox.translateX(laserxmax / 2 * -1)
+    boundingBox.translateY(laserymax / 2 * -1)
+    boundingBox.translateX(xoffset)
+    boundingBox.translateY(-yoffset)
     scene.add(boundingBox);
 
     if (rastermesh) {
@@ -234,9 +255,10 @@ function setImgDims() {
 
         var bbox2 = new THREE.Box3().setFromObject(rastermesh);
         console.log('bbox for rastermesh: Min X: ', (bbox2.min.x + (laserxmax / 2)), '  Max X:', (bbox2.max.x + (laserxmax / 2)), 'Min Y: ', (bbox2.min.y + (laserymax / 2)), '  Max Y:', (bbox2.max.y + (laserymax / 2)));
-        var Xtofix = -(bbox2.min.x + (laserxmax / 2));
+        var Xtofix = -(bbox2.min.x + (laserxmax / 2)) + xoffset;
+        var imagePosition = $('#imagePosition').val()
         console.log('ImagePosition', imagePosition)
-        var Ytofix = -(bbox2.min.y + (laserymax / 2));
+        var Ytofix = -(bbox2.min.y + (laserymax / 2) + yoffset);
         console.log('X Offset', Xtofix)
         console.log('Y Offset', Ytofix)
         rastermesh.translateX(Xtofix);

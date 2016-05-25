@@ -100,7 +100,9 @@ function Rasterizer(config) {
         '; White Speed: {3}mm/min',
         '; Resolution (mm per pixel): {4}mm',
         '; Laser Spot Size: {5}mm',
-        '; Laser Feedrate: {6}mm/min \n',
+        '; Laser Feedrate: {6}mm/min',
+        '; X Offset: {8}mm',
+        '; Y Offset: {9}mm \n',
         'G1 F{7}\n'
         //'G0 F{7}'
     ].join('\n').format(
@@ -112,7 +114,11 @@ function Rasterizer(config) {
         this.config.spotSize1,
         this.config.beamSize1,
         this.config.feedRate,
-        this.config.rapidRate);
+        this.config.rapidRate,
+        this.config.xOffset,
+        this.config.yOffset);
+
+
 
     this.result += '; Start GCode'
     this.result += startgcode
@@ -201,7 +207,7 @@ Rasterizer.prototype.rasterRow = function(y) {
 
     // Calculate where to move to to start the first and next rows - G0 Yxx move between lines
     var posy = y;
-    posy = (posy * this.config.spotSize1);
+    posy = (posy * this.config.spotSize1) - parseFloat(this.config.yOffset);
     posy = posy.toFixed(1);
 
     // Offset Y since Gcode runs from bottom left and paper.js runs from top left
@@ -230,7 +236,7 @@ Rasterizer.prototype.rasterRow = function(y) {
         }
 
         // Convert Pixel Position to millimeter position
-        posx = (posx * this.config.spotSize1);
+        posx = (posx * this.config.spotSize1 + parseFloat(this.config.xOffset));
         posx = posx.toFixed(1);
         // Keep some stats of how many pixels we've processed
         this.megaPixel++;
