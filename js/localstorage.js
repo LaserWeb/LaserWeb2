@@ -34,6 +34,7 @@ function backupSettingsLocal() {
 };
 
 function checkSettingsLocal() {
+  $("#settingsstatus").hide();
   var anyissues = false;
   var anywarn = false;
   printLog('<hr><b>Checking whether you have configured LaserWeb :</b><p>', msgcolor);
