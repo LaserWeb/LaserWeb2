@@ -206,8 +206,15 @@ Rasterizer.prototype.rasterRow = function(y) {
     //console.log('[Rasterizer] rasterRow', y);
 
     // Calculate where to move to to start the first and next rows - G0 Yxx move between lines
+
     var posy = y;
-    posy = (posy * this.config.spotSize1) - parseFloat(this.config.yOffset);
+    // posy = (posy * this.config.spotSize1) - parseFloat(this.config.yOffset);
+    if (this.config.imagePos == "TopLeft") {
+    //   posy = (posy * this.config.spotSize1) - parseFloat(this.config.yOffset) + ((laserymax / 2) + this.config.imgheight);
+      posy = (posy * this.config.spotSize1) - parseFloat(this.config.yOffset) - parseFloat(laserymax) + parseFloat(this.config.physicalHeight);
+    } else {
+      posy = (posy * this.config.spotSize1) - parseFloat(this.config.yOffset);
+    }
     posy = posy.toFixed(1);
 
     // Offset Y since Gcode runs from bottom left and paper.js runs from top left

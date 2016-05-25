@@ -42,18 +42,6 @@ function drawRaster() {
     } else {
         $("#blackwhitespeedsection").hide();
     }
-    // $('#rasterwidget').modal('show');
-    // $('#rasterparams').show();
-    // $('#rasterProgressShroud').hide();
-    // var rasterWidgetTitle = document.getElementById("rasterModalLabel");
-    // rasterWidgetTitle.innerText = 'Raster Engraving';
-    // var sendToLaserButton = document.getElementById("rasterWidgetSendRasterToLaser");
-    // sendToLaserButton.style.display = "none";
-    // var rasterOutput = document.getElementById("rasterOutput");
-    // rasterOutput.style.display = "none";
-    // var selectedFile = event.target.files[0];
-    // var reader = new FileReader();
-    // document.getElementById('fileImage').value = '';
 };
 
 function rasterInit() {
@@ -78,22 +66,6 @@ function rasterInit() {
     $('#laserpwr').html($("#laserpwrslider").slider("values", 0) + '% - ' + $("#laserpwrslider").slider("values", 1) + '%');
     minpwr = $("#laserpwrslider").slider("values", 0);
     maxpwr = $("#laserpwrslider").slider("values", 1);
-
-    // $("#spotsizeslider").slider({
-    //     min: 0,
-    //     max: 250,
-    //     values: [100],
-    //     slide: function(event, ui) {
-    //         //spotSize = [ui.values[ 0 ]];
-    //         $('#rasterNow').removeClass('disabled');
-    //         setImgDims()
-    //     },
-    //     change: function(event, ui) {
-    //         //spotSize = [ui.values[ 0 ]];
-    //         $('#rasterNow').removeClass('disabled');
-    //         setImgDims()
-    //     }
-    // });
 
     $("#laservariablespeedslider").slider({
         range: true,
@@ -131,6 +103,7 @@ function rasterInit() {
         dpival = parseFloat($('#rasterDPI').val()) * 0.03937007874016;
         var img = document.getElementById('origImage');
         width = img.naturalWidth;
+        var physheight = (height / dpival)
         var physwidth = (width / dpival) ;
         var spotSize = (physwidth / width);
         var spotSizeMul = parseFloat($('#spotSize').val());
@@ -142,7 +115,7 @@ function rasterInit() {
         $('#rasterProgressShroud').hide();
         var xoffset = parseFloat($('#rasterxoffset').val());
         var yoffset = parseFloat($('#rasteryoffset').val());
-
+        var imagePosition = $('#imagePosition').val()
 
         paper.RasterNow({
             completed: gcodereceived,
@@ -159,6 +132,8 @@ function rasterInit() {
             rapidRate: [laserRapid],
             xOffset: [xoffset],
             yOffset: [yoffset],
+            imagePos: [imagePosition],
+            physicalHeight: [physheight]
         });
     });
 
@@ -184,7 +159,6 @@ function rasterInit() {
 
 
 function setImgDims() {
-    // spotSizeMul = parseFloat($('#spotSize').val());
     // Rate of inch to mm = 0.03937007874016 from http://www.translatorscafe.com/cafe/EN/units-converter/digital-image-resolution/3-2/dot%2Finch-dot%2Fmillimeter/
     dpival = parseFloat($('#rasterDPI').val()) * 0.03937007874016;
     minpwr = $("#laserpwrslider").slider("values", 0);
@@ -195,53 +169,12 @@ function setImgDims() {
     $("#dims").text(width + 'px x ' + height + 'px');
     $('#canvas-1').prop('width', (width * 2));
     $('#canvas-1').prop('height', (height * 2));
-    //$('#canvas-1').prop('width', laserxmax);
-    //$('#canvas-1').prop('height', laserymax);
-    // if (spotSizeMul > 1 ) {
-    //   var physwidth = (spotSizeMul * width) + (spotSizeMul / 100);
-    //   var physheight = (spotSizeMul * height) +  (spotSizeMul / 100);
-    // } else {
-    //   var physwidth = (spotSizeMul * width) - (spotSizeMul / 100);
-    //   var physheight = (spotSizeMul * height) - (spotSizeMul / 100);
-    // }
     var physwidth = (width / dpival) ;
-
     var physheight = (height / dpival ) ;
-
-
     $("#physdims").text(physwidth.toFixed(1) + 'mm x ' + physheight.toFixed(1) + 'mm');
-    //$('#spotsize').html( ($( "#spotsizeslider" ).slider( "values", 0 ) / 100) + 'mm (distance between dots )<br>Resultant Job Size: '+ physwidth.toFixed(1)+'mm x '+physheight.toFixed(1)+'mm' );
-
-    //  Draw a rect showing outer dims of Engraving - engravings with white space to sides are tricky to visualise without
-    rectWidth = physwidth, rectHeight = physheight;
-    if (boundingBox) {
-        scene.remove(boundingBox);
-    }
-    BBmaterial = new THREE.LineDashedMaterial({
-        color: 0xcccccc,
-        dashSize: 10,
-        gapSize: 5,
-        linewidth: 2
-    });
-    BBgeometry = new THREE.Geometry();
-    BBgeometry.vertices.push(
-        new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(-0, (rectHeight), 0),
-        new THREE.Vector3((rectWidth), (rectHeight), 0),
-        new THREE.Vector3((rectWidth), 0, 0),
-        new THREE.Vector3(0, 0, 0)
-    );
-    boundingBox = new THREE.Line(BBgeometry, BBmaterial);
     var xoffset = parseFloat($('#rasterxoffset').val());
     var yoffset = parseFloat($('#rasteryoffset').val()) * -1;
-    boundingBox.translateX(laserxmax / 2 * -1)
-    boundingBox.translateY(laserymax / 2 * -1)
-    boundingBox.translateX(xoffset)
-    boundingBox.translateY(-yoffset)
-    scene.add(boundingBox);
-
     if (rastermesh) {
-
         rastermesh.scale.x = (physwidth / width)  ;
         rastermesh.scale.y = (physheight / height) ;
 
@@ -250,7 +183,13 @@ function setImgDims() {
         var Xtofix = -(bbox2.min.x + (laserxmax / 2)) + xoffset;
         var imagePosition = $('#imagePosition').val()
         console.log('ImagePosition', imagePosition)
-        var Ytofix = -(bbox2.min.y + (laserymax / 2) + yoffset);
+
+        imagePosition = $('#imagePosition').val()
+        if (imagePosition == "TopLeft") {
+            Ytofix = (laserymax / 2) - bbox2.max.y + yoffset;
+        } else {
+            Ytofix = -(bbox2.min.y + (laserymax / 2) + yoffset);
+        }
         console.log('X Offset', Xtofix)
         console.log('Y Offset', Ytofix)
         rastermesh.translateX(Xtofix);
@@ -262,23 +201,11 @@ function setImgDims() {
 
 function gcodereceived() {
     printLog('Raster Completed', msgcolor)
-        //var rasterSendToLaserButton = document.getElementById("rasterWidgetSendRasterToLaser");
-        //if (rasterSendToLaserButton.style.display == "none") {
-        // 	//$('#rasterwidget').modal('hide');
-
     $('#rasterProgressShroud').hide();
     $('#rasterparams').show();
-    // } else {
-    // 	$('#rasterWidgetSendRasterToLaser').removeClass('disabled');
-    // }
     console.log('New Gcode');
-    //$('#sendToLaser').removeClass('disabled');
     openGCodeFromText();
     gCodeToSend = document.getElementById('gcodepreview').value;
-    //$('#mainStatus').html('Status: <b>Gcode</b> loaded ...');
-    //$('#openMachineControl').removeClass('disabled').prop("disabled", false);
-    //$('#sendCommand').removeClass('disabled');
-    //$('#sendToLaser').removeClass('disabled');
     $('#viewReset').click();
 
 };
