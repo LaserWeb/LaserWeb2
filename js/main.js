@@ -7,7 +7,7 @@ var warncolor = '#ff6600';
 var debug = false;
 
 var useNumPad;
-var activeObject
+var activeObject, fileName
 
 // Place all document.ready tasks into functions and ONLY run the functions from doument.ready
 $(document).ready(function() {
@@ -246,6 +246,18 @@ function readFile(evt) {
     // Close the menu
     $("#drop1").dropdown("toggle");
     cleanupThree();
+    if (typeof(fileName) !== 'undefined' ) {
+      axesgrp.remove(fileName)
+    }
+
+    fileName = makeSprite(scene, "webgl", {
+        x: (laserxmax / 2),
+        y: -30,
+        z: 0,
+        text: 'Filename : ' + evt.target.files[0].name,
+        color: "#000000"
+    });
+    axesgrp.add(fileName);
     // Filereader
     var f = evt.target.files[0];
     if (f) {

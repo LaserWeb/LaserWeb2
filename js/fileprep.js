@@ -379,8 +379,8 @@ function putFileObjectAtZero() {
         var bbox2 = new THREE.Box3().setFromObject(fileParentGroup);
         console.log('bbox for putFileObjectAtZero: Min X: ', (bbox2.min.x + (laserxmax / 2)), '  Max X:', (bbox2.max.x + (laserxmax / 2)), 'Min Y: ', (bbox2.min.y + (laserymax / 2)), '  Max Y:', (bbox2.max.y + (laserymax / 2)));
         Xtofix = -(bbox2.min.x + (laserxmax / 2));
-        console.log('ImagePosition', imagePosition)
         imagePosition = $('#imagePosition').val()
+        console.log('ImagePosition', imagePosition)
         if (imagePosition == "TopLeft") {
             Ytofix = (laserymax / 2) - bbox2.max.y;
         } else {
