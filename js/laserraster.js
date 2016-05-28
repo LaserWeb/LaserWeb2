@@ -120,7 +120,7 @@ function Rasterizer(config) {
 
 
 
-    this.result += '; Start GCode'
+    this.result += '; Start GCode\n'
     this.result += startgcode
 
     // if (this.config.firmware.indexOf('Lasaur') == 0) {
@@ -219,7 +219,7 @@ Rasterizer.prototype.rasterRow = function(y) {
 
     // Offset Y since Gcode runs from bottom left and paper.js runs from top left
     var gcodey = (this.config.imgheight * this.config.spotSize1) - posy;
-    gcodey = gcodey.toFixed(1);
+    gcodey = gcodey.toFixed(3);
     this.result += 'G0 Y{0}\n'.format(gcodey);
 
     // Clear grayscale values on each line change
@@ -244,16 +244,18 @@ Rasterizer.prototype.rasterRow = function(y) {
 
         // Convert Pixel Position to millimeter position
         posx = (posx * this.config.spotSize1 + parseFloat(this.config.xOffset));
-        posx = posx.toFixed(1);
+        posx = posx.toFixed(3);
         // Keep some stats of how many pixels we've processed
         this.megaPixel++;
 
         // The Luma grayscale of the pixel
-        var lumaGray = (pixels[x*4]*0.3 + pixels[x*4+1]*0.59 + pixels[x*4+2]*0.11)/255.0;
-        this.grayLevel = lumaGray.toFixed(1);
+        var lumaGray;
+	if (pixels[x*4+3] == 0) lumaGray = 1.0; // If full transparency => 0 intensity
+	else lumaGray = (pixels[x*4]*0.3 + pixels[x*4+1]*0.59 + pixels[x*4+2]*0.11)/255.0;  // 0-1.0
+	this.grayLevel = Math.round(lumaGray*lasermultiply)/lasermultiply; // Should give "lasermultiply" levels in the range 0-1
 
         var speed = this.config.feedRate;
-        if (lastGrey != this.grayLevel) {
+        if (lastGrey = this.grayLevel) { 
             intensity = this.figureIntensity();
             speed = this.figureSpeed(lastGrey);
             lastGrey = this.grayLevel;
