@@ -255,7 +255,7 @@ Rasterizer.prototype.rasterRow = function(y) {
 	this.grayLevel = Math.round(lumaGray*lasermultiply)/lasermultiply; // Should give "lasermultiply" levels in the range 0-1
 
         var speed = this.config.feedRate;
-        if (lastGrey != this.grayLevel) { 
+        if (lastGrey != this.grayLevel) {
             intensity = this.figureIntensity();
             speed = this.figureSpeed(lastGrey);
             lastGrey = this.grayLevel;
