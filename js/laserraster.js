@@ -120,7 +120,7 @@ function Rasterizer(config) {
 
 
 
-    this.result += '; Start GCode'
+    this.result += '; Start GCode\n'
     this.result += startgcode
 
     // if (this.config.firmware.indexOf('Lasaur') == 0) {
@@ -219,7 +219,7 @@ Rasterizer.prototype.rasterRow = function(y) {
 
     // Offset Y since Gcode runs from bottom left and paper.js runs from top left
     var gcodey = (this.config.imgheight * this.config.spotSize1) - posy;
-    gcodey = gcodey.toFixed(1);
+    gcodey = gcodey.toFixed(3);
     this.result += 'G0 Y{0}\n'.format(gcodey);
 
     // Clear grayscale values on each line change
@@ -244,15 +244,17 @@ Rasterizer.prototype.rasterRow = function(y) {
 
         // Convert Pixel Position to millimeter position
         posx = (posx * this.config.spotSize1 + parseFloat(this.config.xOffset));
-        posx = posx.toFixed(1);
+        posx = posx.toFixed(3);
         // Keep some stats of how many pixels we've processed
         this.megaPixel++;
 
         // The Luma grayscale of the pixel
-        var lumaGray = (pixels[x*4]*0.3 + pixels[x*4+1]*0.59 + pixels[x*4+2]*0.11)/255.0;
-        this.grayLevel = lumaGray.toFixed(1);
-
-        var speed = this.config.feedRate;
+	var alpha = pixels[x*4+3]/255.0;                                                   // 0-1.0
+        var lumaGray = (pixels[x*4]*0.3 + pixels[x*4+1]*0.59 + pixels[x*4+2]*0.11)/255.0;  // 0-1.0
+	lumaGray = alpha * lumaGray + (1-alpha)*1.0;
+	this.grayLevel = lumaGray.toFixed(3);
+	
+	var speed = this.config.feedRate;
         if (lastGrey != this.grayLevel) {
             intensity = this.figureIntensity();
             speed = this.figureSpeed(lastGrey);
@@ -281,7 +283,7 @@ Rasterizer.prototype.rasterRow = function(y) {
                         this.result += laseron
                         this.result += '\n'
                     }
-                    this.result += 'G1 X{0} Y{1} S{2} F{3}\n'.format(posx, gcodey, lastIntensity, speed);
+                    this.result += 'G1 X{0} S{2} F{3}\n'.format(posx, gcodey, lastIntensity, speed);
                     if (laseroff) {
                         this.result += laseroff
                         this.result += '\n'
@@ -295,7 +297,7 @@ Rasterizer.prototype.rasterRow = function(y) {
                         this.result += laseron
                         this.result += '\n'
                     }
-                    this.result += 'G1 X{0} Y{1} S{2}\n'.format(posx, gcodey, lastIntensity);
+                    this.result += 'G1 X{0} S{2}\n'.format(posx, gcodey, lastIntensity);
                     if (laseroff) {
                         this.result += laseroff
                         this.result += '\n'
@@ -308,7 +310,7 @@ Rasterizer.prototype.rasterRow = function(y) {
                 //this.result += 'G1 S0\n';
             } else {
                 if ((intensity > 0) || (this.config.optimizelineends == false)) {
-                    this.result += 'G0 X{0} Y{1} S0\n'.format(posx, gcodey);
+                    this.result += 'G0 X{0} S0\n'.format(posx, gcodey);
                 }
 
             }
