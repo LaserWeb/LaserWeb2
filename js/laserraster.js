@@ -216,7 +216,7 @@ Rasterizer.prototype.rasterRow = function(y) {
     } else {
       posy = (posy * this.config.spotSize1) - parseFloat(this.config.yOffset);
     }
-    posy = posy.toFixed(1);
+    posy = posy.toFixed(3);
 
     // Offset Y since Gcode runs from bottom left and paper.js runs from top left
     var gcodey = (this.config.imgheight * this.config.spotSize1) - posy;
