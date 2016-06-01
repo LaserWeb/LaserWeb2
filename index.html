@@ -19,6 +19,7 @@
     <!-- Bootstrap and UX -->
     <link type="text/css" rel="stylesheet" media="all" href="lib/bootstrap/css/bootstrap.min.css" id="theme_css" />
     <link type="text/css" rel="stylesheet" media="all" href="lib/bootstrap/css/bootstrap-callouts.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="lib/bootstrap/css/bootstrap-tour.min.css" />
     <link type="text/css" rel="stylesheet" media="all" href="css/main.css" id="extra_css" />
 
     <script src="lib/jquery/jquery.min.js"></script>
@@ -26,6 +27,7 @@
 
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap-filestyle.js"></script>
+    <script src="lib/bootstrap/js/bootstrap-tour.min.js"></script>
     <script src="lib/bootstrap/js/dropdowns-enhancement.js"></script>
 
     <link type="text/css" rel="stylesheet" media="all" href="lib/bootstrap/css/bootstrap-colorselector.css" id="extra_css" />
@@ -117,6 +119,11 @@
     <script src="js/googlesignin.js"></script>
     <meta name="google-signin-client_id" content="1086441811451-4nmidqbqq8tve1qqa592uq1hs04kl5sl.apps.googleusercontent.com">
     <link rel="stylesheet" href="css/googlesignin.css" />
+
+    <!-- Product tour -->
+    <script src="js/tour.js"></script>
+
+
 
 </head>
 
@@ -682,6 +689,14 @@
         <!-- Main Body Right column-->
         <div id="col2">
 
+            <!--Tabs for Layers-->
+            <ul class="nav nav-tabs" accesskey=""id="tabsLayers">
+              <li role="presentation" class="active"><a href="#">All Layers</a></li>
+              <li role="presentation"><a href="#">GCODE View</a></li>
+            </ul>
+
+
+            <!-- End Layers -->
             <!-- 3D Viewer and DRO -->
             <div id="renderArea"></div>
             <p>
@@ -757,7 +772,7 @@
                     </div>
                 </div>
 
-                <div class="btn-group" role="group" id="transformcontrols" style="vertical-align: bottom; margin-left: 18px;">
+                <div class="btn-group" role="group" id="viewcontrols" style="vertical-align: bottom; margin-left: 18px;">
                   <!-- <div class="btn-group input-group  btn-group-vertical" role="group" aria-label="" style="vertical-align: bottom;">
                     <button type="button" data-title="Reset Camera" class="btn btn-view btn-lg btn-default" id="togglemacro"><span class="fa-stack fa-1x"><i class="fa fa-search fa-stack-1x"></i><strong class="fa-stack-1x icon-top-text">Macro</strong><strong class="fa-stack-1x icon-bot-text">Panel</strong></span></button>
                     <button type="button" data-title="Reset Camera" class="btn btn-view btn-lg btn-default" id="viewReset"><span class="fa-stack fa-1x"><i class="fa fa-search fa-stack-1x"></i><strong class="fa-stack-1x icon-top-text">Reset</strong><strong class="fa-stack-1x icon-bot-text">Zoom</strong></span></button>
@@ -769,7 +784,7 @@
 
                 </div>
 
-                <div class="btn-group" role="group" id="pan controls" style="vertical-align: bottom; margin-left: 18px;">
+                <div class="btn-group" role="group" id="pancontrols" style="vertical-align: bottom; margin-left: 18px;">
                     <div class="btn-group input-group  btn-group-vertical" role="group" aria-label="" style="vertical-align: bottom;">
                         <button onclick='jQuery.Event( "DOMMouseScroll",{delta: -650} );' type="button" data-title="Zoom Out" class="btn btn-view btn-lg btn-default" id="zoomout"><i class="fa fa-search-minus"></i></button>
                         <button type="button" data-title="Pan Left" class="btn btn-view  btn-lg btn-default" id="panleft"><i class="fa fa-arrow-left"></i></button>

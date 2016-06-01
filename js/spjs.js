@@ -62,6 +62,9 @@ function sendGcode(gcode) {
         var gcode = gcode;
         wsSend('send ' + $('#port').val() + ' ' + gcode);
         console.log('send ' + $('#port').val() + ' ' + gcode)
+    } else {
+      var gcode = gcode;
+      printLog('Could not send ' + gcode + ' - NOT CONNECTED', errorcolor)
     };
 };
 

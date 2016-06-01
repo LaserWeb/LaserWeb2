@@ -1,5 +1,13 @@
 function initJog() {
 
+    $('#bounding').on('click', function() {
+      $('#console').append('<span class="pf" style="color: #000000;"><b>Drawing Bounding Box...</b></span><br>');
+      $('#console').scrollTop($("#console")[0].scrollHeight - $("#console").height());
+      sendGcode('G90\nG0 X'+$('#BBXMIN').val()+' Y'+$('#BBYMIN').val()+' F2000\nG0 X'+$('#BBXMAX').val()+' Y'+$('#BBYMIN').val()+' F2000\nG0 X'+$('#BBXMAX').val()+' Y'+$('#BBYMAX').val()+' F2000\nG0 X'+$('#BBXMIN').val()+' Y'+$('#BBYMAX').val()+' F2000\nG0 X'+$('#BBXMIN').val()+' Y'+$('#BBYMIN').val()+' F2000\nG90');
+    });
+
+
+
     $('#xP').on('click', function() {
        if (isConnected) {
          var dist = $('input[name=stp]:checked', '#stepsize').val()

@@ -26,6 +26,7 @@ $(document).ready(function() {
     rasterInit();
     macrosInit();
     svgInit();
+    initTour();
     grbl = new Grbl();
 
     //initRaster();
@@ -257,6 +258,8 @@ function readFile(evt) {
         text: 'Filename : ' + evt.target.files[0].name,
         color: "#000000"
     });
+
+    $('#tabsLayers').append('<li role="presentation" class="layerth" id="'+evt.target.files[0].name+'-tab"><a href="#">'+evt.target.files[0].name+'</a></li>')
     axesgrp.add(fileName);
     // Filereader
     var f = evt.target.files[0];
