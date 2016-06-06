@@ -24,7 +24,7 @@ $(document).ready(function() {
     errorHandlerJS();
     var paperscript = {};
     rasterInit();
-    macrosInit();
+    // macrosInit();
     svgInit();
     initTour();
     grbl = new Grbl();

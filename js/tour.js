@@ -5,11 +5,11 @@ function initTour() {
     smartPlacement: true,
     container: "body",
     steps: [
-    {
-      element: "#connect",
-      title: "Setup connection",
-      content: "Note: You need Serial Port JSON Server running!<br>Select a Serial Port, Buffer and Baud rate, then connect.  "
-    },
+    // {
+    //   element: "#connect",
+    //   title: "Setup connection",
+    //   content: "Note: You need Serial Port JSON Server running!<br>Select a Serial Port, Buffer and Baud rate, then connect.  "
+    // },
     {
       element: "#openbutton",
       title: "Open Files",
@@ -20,12 +20,12 @@ function initTour() {
       title: "Optional: Google Drive",
       content: "You can sign in to your Google Drive and load job files directly from Google Drive"
     },
-    {
-      element: "#toggleviewer",
-      title: "Machine Control",
-      content: "On this tab you can start/stop jobs, jog the machine, zero out work coordinates, etc",
-      onShow: function (tour) { $('#toggleviewer').click()}
-    },
+    // {
+    //   element: "#toggleviewer",
+    //   title: "Machine Control",
+    //   content: "On this tab you can start/stop jobs, jog the machine, zero out work coordinates, etc",
+    //   onShow: function (tour) { $('#toggleviewer').click()}
+    // },
     {
       element: "#togglefile",
       title: "CAM -> Gcode Generator",
@@ -35,7 +35,7 @@ function initTour() {
     {
       element: "#togglesettings",
       title: "Configure LaserWeb",
-      content: "NB: Don't forget to configure LaserWeb to your specific machine! From the bed size, to Gcode commands, enabling features like touchscreen support and tool offset, camera overlays, etc.  Also quite critical, provide the IP address of the machine/device where you are running Serial Port JSON Server",
+      content: "NB: Don't forget to configure LaserWeb to your specific machine! From the bed size, to Gcode commands, enabling features like touchscreen support and tool offset, camera overlays, etc. ",
       onShow: function (tour) { $('#togglesettings').click()}
     },
     {
@@ -63,13 +63,13 @@ function initTour() {
       title: "The Viewer",
       content: "Here you'll see your files opened as well as preview GCODE and machine moves"
     },
-    {
-      element: "#drotabtn",
-      title: "DRO",
-      content: "The DRO displays realtime position feedback from the machine.  Useful for setting offsets, monitoring jobs, etc",
-      onShow: function (tour) { $('#drotabtn').click()},
-      placement: 'left'
-    },
+    // {
+    //   element: "#drotabtn",
+    //   title: "DRO",
+    //   content: "The DRO displays realtime position feedback from the machine.  Useful for setting offsets, monitoring jobs, etc",
+    //   onShow: function (tour) { $('#drotabtn').click()},
+    //   placement: 'left'
+    // },
     {
       element: "#gcodetabbtn",
       title: "G Code Tab",
@@ -78,16 +78,16 @@ function initTour() {
       onHide: function (tour) { $('#drotabtn').click()},
       placement: 'left'
     },
-    {
-      element: "#command",
-      title: "Manual Commands",
-      content: "Use to send custom M and G code commands to your machine",
-      placement: 'left'
-    },
+    // {
+    //   element: "#command",
+    //   title: "Manual Commands",
+    //   content: "Use to send custom M and G code commands to your machine",
+    //   placement: 'left'
+    // },
     {
       element: "#console",
       title: "Log / Console",
-      content: "Displays feedback from the machine, as well as log output from LaserWeb itself",
+      content: "Displays feedback / log output from LaserWeb Backend",
       placement: 'left'
     },
   ]});
