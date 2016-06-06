@@ -96,5 +96,5 @@ function initTour() {
   tour.init();
 
   // Start the tour
-  tour.restart();
+  tour.start();
 }
