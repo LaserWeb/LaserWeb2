@@ -10,14 +10,16 @@ So how can I help?
 
 If you sell laser machines / parts / electronics / anything remotely related - I am happy to say we'll gladly take your bribe in exchange for sticking your logo on our SPONSORS page and linking to your stores! We'll probably even hook up the hardware you donate and figure out how it works and add that info/specifics/settings to this Wiki! If you have any business common sense, you can see that it is a pretty good ROI out of your marketing budget (;
 
+#Usage Note:
+LaserWeb is under active development and thus LaserWeb2 has now been changed to provide only CAM function with GCODE download. Should you wish to continue using it with Serial connection [use version a2145c5 ](https://github.com/openhardwarecoza/LaserWeb2/tree/a2145c5695e332be71c1374887c23eb99cf413a8) on a locally installed machine or fork to your own repository and visit the link as shown below. #72
 
 
 #Usage Instructions:
 
 1. Go to [http://openhardwarecoza.github.io/LaserWeb2/](http://openhardwarecoza.github.io/LaserWeb2/)
-2. Install Serial Port JSON Server https://github.com/chilipeppr/serial-port-json-server/releases
-3. Click the Settings tab in LaserWeb2's web interface and configure for your machine, IP of SPJS, GCODE dialect, etc
-4. Connect and PLAY
+2. Import your desing and prepare it
+3. Save GCODE and run it on the machine with some other firmware
+4. See above if Usage Note if you wish to use it with Serial connection.
 
  
 ## Disclaimer
