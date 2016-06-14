@@ -19,7 +19,7 @@ LaserWeb is under active development and thus LaserWeb2 has now been changed to 
 1. Go to [http://openhardwarecoza.github.io/LaserWeb2/](http://openhardwarecoza.github.io/LaserWeb2/)
 2. Import your design and prepare it
 3. Save GCODE and run it on the machine with some other firmware
-4. See above if Usage Note if you wish to use it with Serial connection.
+4. See above Usage Note if you wish to use it with Serial connection.
 
  
 ## Disclaimer
