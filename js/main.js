@@ -185,6 +185,8 @@ checkNumPad();
 
 checkSettingsLocal();
 
+$("#retiredmodal").modal('show');
+
 });
 // End of document.ready
 
